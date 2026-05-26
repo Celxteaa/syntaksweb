@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SyntaksWeb: Jasa pembuatan website murah dan profesional untuk UMKM. Mulai dari 200 ribuan, cepat, responsif, dan siap tampil online.">
+    <meta name="keywords" content="jasa pembuatan website, website murah umkm, jasa website profesional, buat website murah">
+    <meta property="og:title" content="SyntaksWeb || Solusi Website Hemat & Profesional untuk UMKM">
+    <meta property="og:description" content="Membangun profil digital untuk bisnis Anda dengan harga terjangkau.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://syntaksweb.pro/">
+    <title>SyntaksWeb || Solusi Website Hemat & Profesional untuk UMKM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        :root {
+            --bg: #0a0a0c;
+            --card: #111114;
+            --accent: #10b981;
+            --border: #1f1f23;
+        }
+        body { 
+            background-color: var(--bg); 
+            color: #9ea4b0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .code-font { font-family: 'Fira Code', monospace; }
+        .glass-card { 
+            background: var(--card);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .text-white-pure { color: #ffffff; }
+        .gradient-text {
+            background: linear-gradient(to right, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: #000;
+            transition: transform 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: #34d399;
+        }
+        /* Custom scrollbar untuk area chat box */
+        .chat-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: #0a0a0c;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #1f1f23;
+            border-radius: 10px;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
+    </style>
+</head>
+<body x-data="{ 
+    page: 'home', 
+    mobileMenu: false,
+    selectedProject: null,
+    projects: [
+        { 
+            title: 'Toko Sapto', 
+            category: 'UMKM', 
+            desc: 'Toko Pak Sapto.',
+            link: 'https://tokosapto.eu.org/' 
+        }
+    ]
+}">
+
+    <nav class="fixed top-0 w-full z-50 bg-[#0a0a0c]/90 backdrop-blur-md border-b border-[#1f1f23]">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div @click="page = 'home'" class="flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-code text-emerald-500 text-2xl"></i>
+                <span class="text-white-pure font-extrabold tracking-tighter text-xl code-font uppercase">
+                    Syntaks<span class="text-emerald-500">Web</span>
+                </span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest">
+                <button @click="page = 'home'" :class="page === 'home' ? 'text-emerald-500' : 'hover:text-white-pure'" class="transition">Beranda</button>
+                <button @click="page = 'services'" :class="page === 'services' ? 'text-emerald-500' : 'hover:text-white-pure'" class="transition">Layanan</button>
+                <button @click="page = 'portfolio'" :class="page === 'portfolio' ? 'text-emerald-500' : 'hover:text-white-pure'" class="transition">Portfolio</button>
+                <button @click="page = 'pricing'" :class="page === 'pricing' ? 'text-emerald-500' : 'hover:text-white-pure'" class="transition">Harga</button>
+                <a href="https://wa.me/6289630463001" class="bg-emerald-500 text-black px-6 py-2.5 rounded-lg hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/10 uppercase tracking-widest text-[10px]">Konsultasi Gratis</a>
+            </div>
+
+            <button class="md:hidden text-white-pure text-2xl" @click="mobileMenu = !mobileMenu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 max-w-6xl mx-auto px-6 min-h-screen">
+
+        <section x-show="page === 'home'" x-cloak x-transition:enter="transition duration-300 ease-out" x-transition:enter-start="opacity-0 translate-y-4">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-7xl font-extrabold text-white-pure leading-[1.1] mb-8 tracking-tight">
+                        Jasa Pembuatan Website, <span class="gradient-text">Harga Murah.</span>
+                    </h1>
+                    <p class="text-lg text-gray-400 mb-10 leading-relaxed max-w-lg">
+                        Membangun profil digital yang kredibel untuk UMKM dan Bisnis. Cepat, responsif, dan lengkap dengan harga mulai dari 200 ribuan.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button @click="page = 'pricing'" class="btn-primary px-10 py-4 rounded-xl font-bold flex items-center gap-3">
+                            Lihat Promo <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                        <a href="https://wa.me/6289630463001" class="border border-[#1f1f23] text-white-pure px-10 py-4 rounded-xl font-bold hover:bg-white/5 transition">Tanya Dulu</a>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl relative z-10 border-emerald-500/20 bg-[#0d0d0f]">
+                        <div class="flex gap-2 mb-10 border-b border-[#1f1f23] pb-6">
+                            <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/50"></div>
+                            <span class="ml-4 text-[10px] uppercase tracking-[0.3em] text-gray-600 font-bold">SyntaksWeb</span>
+                        </div>
+                        <div class="code-font text-xl md:text-3xl leading-relaxed italic">
+                            <p class="text-pink-500">while<span class="text-white-pure">(</span><span class="text-emerald-400">alive</span><span class="text-white-pure">) {</span></p>
+                            <p class="pl-10 text-blue-400">build_awesome_web<span class="text-white-pure">();</span></p>
+                            <p class="text-white-pure">}</p>
+                        </div>
+                        <div class="mt-12 flex items-center justify-between">
+                            <div class="text-[10px] uppercase tracking-widest font-bold text-gray-500">
+                                <span class="inline-block w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span> Status: Online
+                            </div>
+                            <i class="fa-solid fa-shield-halved text-emerald-500/30 text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-emerald-500/5 blur-[100px] rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <section x-show="page === 'services'" x-cloak x-transition>
+            <div class="text-center mb-20">
+                <h2 class="text-3xl font-bold text-white-pure mb-4 tracking-tighter uppercase">Layanan</h2>
+                <div class="h-1 w-12 bg-emerald-500 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-10 rounded-3xl hover:translate-y-[-8px]">
+                    <div class="text-emerald-500 text-4xl mb-8"><i class="fa-solid fa-store"></i></div>
+                    <h3 class="text-white-pure font-extrabold text-xl mb-4">Profil UMKM</h3>
+                    <p class="text-sm leading-relaxed text-gray-500">Website khusus untuk memperkenalkan produk Anda ke jangkauan pasar yang lebih luas.</p>
+                </div>
+                <div class="glass-card p-10 rounded-3xl hover:translate-y-[-8px]">
+                    <div class="text-emerald-500 text-4xl mb-8"><i class="fa-solid fa-briefcase"></i></div>
+                    <h3 class="text-white-pure font-extrabold text-xl mb-4">Company Profile</h3>
+                    <p class="text-sm leading-relaxed text-gray-500">Tingkatkan rasa percaya klien dengan profil perusahaan digital yang terlihat berkelas.</p>
+                </div>
+                <div class="glass-card p-10 rounded-3xl hover:translate-y-[-8px]">
+                    <div class="text-emerald-500 text-4xl mb-8"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3 class="text-white-pure font-extrabold text-xl mb-4">Mobile Ready</h3>
+                    <p class="text-sm leading-relaxed text-gray-500">Website otomatis terlihat rapi saat dibuka dari HP maupun Laptop.</p>
+                </div>
+            </div>
+        </section>
+
+        <section x-show="page === 'portfolio'" x-cloak x-transition>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white-pure mb-2 tracking-tighter uppercase">Portfolio</h2>
+                <p class="text-gray-500 text-sm italic">Klik proyek untuk melihat live preview.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <template x-for="project in projects" :key="project.title">
+                    <div @click="selectedProject = project" class="glass-card p-8 rounded-2xl cursor-pointer group border-emerald-500/0 hover:border-emerald-500/40 relative">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[9px] font-bold text-emerald-500 uppercase tracking-widest bg-emerald-500/5 px-3 py-1 rounded-full border border-emerald-500/10" x-text="project.category"></span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-700 group-hover:text-emerald-500 transition"></i>
+                        </div>
+                        <h3 class="text-white-pure font-bold text-xl mb-2" x-text="project.title"></h3>
+                        <p class="text-xs text-gray-500 leading-relaxed mb-6" x-text="project.desc"></p>
+                        <div class="text-[10px] font-mono text-gray-600 truncate" x-text="project.link"></div>
+                    </div>
+                </template>
+            </div>
+
+            <div x-show="selectedProject" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-[#0a0a0c]/95 backdrop-blur-xl" @keydown.escape.window="selectedProject = null">
+                <div class="w-full h-full max-w-6xl flex flex-col glass-card rounded-[2rem] overflow-hidden shadow-2xl border-emerald-500/30" @click.away="selectedProject = null">
+                    <div class="p-5 px-8 border-b border-[#1f1f23] flex justify-between items-center bg-[#111114]">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                                <i class="fa-solid fa-globe text-emerald-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white-pure font-bold leading-none" x-text="selectedProject?.title"></h3>
+                                <p class="text-[10px] text-gray-500 font-mono mt-1" x-text="selectedProject?.link"></p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-center">
+                            <a :href="selectedProject?.link" target="_blank" class="hidden md:block text-[10px] font-bold text-emerald-500 hover:text-white-pure uppercase tracking-widest transition">Buka di Tab Baru <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+                            <button @click="selectedProject = null" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-white-pure hover:bg-red-500 hover:text-white transition">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-grow bg-white relative">
+                        <iframe :src="selectedProject?.link" class="w-full h-full border-none"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section x-show="page === 'pricing'" x-cloak x-transition>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white-pure mb-2 tracking-tighter uppercase">Pilih Paket yang Sesuai untuk Website Anda</h2>
+                <p class="text-emerald-500 text-sm font-bold uppercase tracking-widest">Penawaran Terbatas</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 items-start max-w-5xl mx-auto">
+                <div class="glass-card p-8 rounded-3xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-black px-4 py-1.5 rotate-45 translate-x-3 translate-y-3 uppercase tracking-tighter shadow-lg">Promo</div>
+                    <h3 class="text-white-pure font-bold text-lg mb-2">Paket Hemat</h3>
+                    <div class="mb-6">
+                        <span class="text-red-600 line-through text-sm italic">Rp 499.000</span>
+                        <p class="text-emerald-500 text-3xl font-black font-mono">Rp 200.000</p>
+                    </div>
+                    <ul class="space-y-4 text-xs mb-10 border-t border-[#1f1f23] pt-6">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Landing Page (1 Halaman)</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Aktif 1 Tahun</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Domain biz.id/my.id</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Tombol WhatsApp Langsung</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Mobile Responsive</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Revisi 1x</li>
+                    </ul>
+                    <a href="https://wa.me/6289630463001" class="block text-center border border-[#1f1f23] text-white-pure py-4 rounded-xl font-bold hover:bg-emerald-500 hover:text-black transition uppercase text-[10px] tracking-widest">Pilih Paket</a>
+                </div>
+
+                <div class="glass-card p-10 rounded-3xl border-emerald-500 relative bg-[#16161a] scale-105 shadow-2xl">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter">Rekomendasi</div>
+                    <h3 class="text-white-pure font-bold text-xl mb-2">Paket Bisnis</h3>
+                    <div class="mb-6">
+                        <span class="text-red-600 line-through text-sm italic">Rp 1.200.000</span>
+                        <p class="text-emerald-500 text-4xl font-black font-mono">Rp 1.000.000</p>
+                    </div>
+                    <ul class="space-y-4 text-sm mb-10 border-t border-[#1f1f23] pt-6">
+                        <li class="flex items-center gap-3 text-white-pure"><i class="fa-solid fa-circle-check text-emerald-500"></i> Up to 5 Halaman</li>
+                        <li class="flex items-center gap-3 text-white-pure"><i class="fa-solid fa-circle-check text-emerald-500"></i> Aktif 1 Tahun</li>
+                        <li class="flex items-center gap-3 text-white-pure"><i class="fa-solid fa-circle-check text-emerald-500"></i> Domain .com</li>
+                        <li class="flex items-center gap-3 text-white-pure"><i class="fa-solid fa-circle-check text-emerald-500"></i> Integrasi Google Maps dan WhatsApp</li>
+                        <li class="flex items-center gap-3 text-white-pure"><i class="fa-solid fa-circle-check text-emerald-500"></i> Optimasi SEO Dasar</li>
+                        <li class="flex items-center gap-3 text-white-pure"><i class="fa-solid fa-circle-check text-emerald-500"></i> Maintenance 1 Bulan</li>
+                    </ul>
+                    <a href="https://wa.me/6289630463001" class="block text-center btn-primary py-4 rounded-xl font-bold uppercase text-xs tracking-widest shadow-xl shadow-emerald-500/20">Pilih Paket</a>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white-pure font-bold text-lg mb-2">Paket Custom</h3>
+                    <div class="mb-6">
+                        <span class="text-red-600 line-through text-sm italic">Rp 5.000.000</span>
+                        <p class="text-emerald-500 text-3xl font-black font-mono">Rp 3.500.000</p>
+                    </div>
+                    <ul class="space-y-4 text-xs mb-10 border-t border-[#1f1f23] pt-6">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Fitur Khusus (Invoice Otomatis)</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Aktif 1 Tahun</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Custom Domain</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Database & Dashboard</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Unlimited Pages</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Widget Review Google Maps (Opsional)</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Priority Support</li>
+                    </ul>
+                    <a href="https://wa.me/6289630463001" class="block text-center border border-[#1f1f23] text-white-pure py-4 rounded-xl font-bold hover:bg-emerald-500 hover:text-black transition uppercase text-[10px] tracking-widest">Konsultasi</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div x-data="{ 
+        open: false, 
+        userInput: '', 
+        templates: [
+            'Rekomendasi paket',
+            'Apa saja fitur Paket Bisnis?',
+            'Apa itu Paket Custom?',
+        ],
+        messages: [
+            { sender: 'bot', text: 'Halo! Saya SyntaksBot. Ada yang bisa saya bantu mengenai detail produk atau pilihan harga paket di SyntaksWeb?' }
+        ],
+        async sendMessage(customMsg = null) {
+            let userMsg = customMsg ? customMsg : this.userInput;
+            if (!userMsg.trim()) return;
+            
+            this.messages.push({ sender: 'user', text: userMsg });
+            
+            if (!customMsg) this.userInput = '';
+            
+            this.messages.push({ sender: 'bot', text: '...' });
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMsg })
+                });
+                const data = await response.json();
+                
+                this.messages.pop(); 
+                this.messages.push({ sender: 'bot', text: data.reply });
+            } catch (error) {
+                this.messages.pop();
+                this.messages.push({ sender: 'bot', text: 'Maaf, koneksi saya sedang terputus. Silakan hubungi kami langsung melalui tautan aman berikut: [Klik di sini untuk Chat WhatsApp](https://wa.me/6289630463001)' });
+            }
+        }
+    }" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[99]">
+        
+        <button @click="open = !open" class="bg-emerald-500 text-black w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 transition transform hover:scale-105 focus:outline-none">
+            <i x-show="!open" class="fa-solid fa-comment-dots text-xl"></i>
+            <i x-show="open" class="fa-solid fa-xmark text-xl" x-cloak></i>
+        </button>
+
+        <div x-show="open" x-cloak x-transition 
+             class="absolute bottom-16 right-0 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[75vh] max-h-[480px] min-h-[350px] bg-[#111114] border border-[#1f1f23] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            
+            <div class="p-4 bg-[#0a0a0c] border-b border-[#1f1f23] flex items-center gap-3 shrink-0">
+                <div class="relative">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/30">
+                        <i class="fa-solid fa-user-ninja text-emerald-500 text-sm"></i>
+                    </div>
+                    <span class="absolute bottom-0 right-0 block h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-[#111114]"></span>
+                </div>
+                <div>
+                    <h4 class="text-white-pure text-xs font-bold uppercase tracking-wider code-font">SyntaksBot</h4>
+                    <p class="text-[10px] text-emerald-500 font-medium">Asisten AI</p>
+                </div>
+            </div>
+
+            <div class="flex-grow p-4 overflow-y-auto space-y-3 text-xs chat-scroll min-h-0 bg-[#111114]">
+                <template x-for="(msg, index) in messages" :key="index">
+                    <div :class="msg.sender === 'user' ? 'text-right' : 'text-left'">
+                        <div :class="msg.sender === 'user' ? 'bg-emerald-500 text-black rounded-br-none' : 'bg-[#1f1f23] text-gray-300 rounded-bl-none'" 
+                             class="inline-block p-3 rounded-xl max-w-[85%] text-left whitespace-pre-wrap break-words leading-relaxed shadow-sm"
+                             x-html="
+                                msg.text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href=\'$2\' target=\'_blank\' class=\'text-emerald-400 font-extrabold underline hover:text-emerald-300 transition\'>$1</a>')
+                             ">
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="p-2 bg-[#0d0d10] border-t border-[#1f1f23] flex gap-2 overflow-x-auto chat-scroll whitespace-nowrap shrink-0">
+                <template x-for="tmpl in templates" :key="tmpl">
+                    <button type="button" @click="sendMessage(tmpl)" class="inline-block bg-[#1f1f23] text-gray-300 border border-[#2d2d35] hover:border-emerald-500 hover:text-white-pure px-3 py-1.5 rounded-lg text-[11px] font-medium transition duration-200 shrink-0">
+                        <span x-text="tmpl"></span>
+                    </button>
+                </template>
+            </div>
+
+            <form @submit.prevent="sendMessage()" class="p-3 bg-[#0a0a0c] border-t border-[#1f1f23] flex gap-2 items-center shrink-0">
+                <input x-model="userInput" type="text" placeholder="Tanyakan seputar paket atau harga..." class="flex-grow min-w-0 bg-[#111114] border border-[#1f1f23] rounded-xl px-4 py-2.5 text-xs text-white-pure focus:outline-none focus:border-emerald-500 placeholder-gray-600">
+                <button type="submit" class="bg-emerald-500 text-black w-9 h-9 flex items-center justify-center rounded-xl hover:bg-emerald-400 transition shrink-0">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="border-t border-[#1f1f23] py-16 bg-[#0a0a0c]">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="text-center md:text-left">
+                <span class="text-white-pure font-black text-xl code-font uppercase">Syntaks<span class="text-emerald-500">Web</span></span>
+                <p class="text-xs text-gray-600 mt-4 max-w-xs leading-relaxed italic">While alive, we build. Jasa pembuatan Website berkualitas dengan harga terjangkau.</p>
+            </div>
+        </div>
+        <div class="text-center mt-16 text-[10px] text-gray-700 tracking-widest uppercase">
+            &copy; 2026 SyntaksWeb. Developed for the next big business.
+        </div>
+    </footer>
+
+    <div x-show="mobileMenu" x-cloak class="fixed inset-0 z-[100] bg-[#0a0a0c] p-12 flex flex-col justify-center items-center gap-10 font-extrabold text-2xl uppercase tracking-tighter">
+        <button @click="mobileMenu = false" class="absolute top-8 right-8 text-white-pure text-4xl">&times;</button>
+        <button @click="page = 'home'; mobileMenu = false" class="hover:text-emerald-500">Beranda</button>
+        <button @click="page = 'services'; mobileMenu = false" class="hover:text-emerald-500">Layanan</button>
+        <button @click="page = 'portfolio'; mobileMenu = false" class="hover:text-emerald-500">Portfolio</button>
+        <button @click="page = 'pricing'; mobileMenu = false" class="hover:text-emerald-500">Harga</button>
+        <a href="https://wa.me/6289630463001" class="text-emerald-500">Konsultasi</a>
+    </div>
+
+</body>
+</html>
