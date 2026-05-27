@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template || SyntaksWeb</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        body { 
+            background-color: #0a0a0c; 
+            color: #9ea4b0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .code-font { font-family: 'Fira Code', monospace; }
+        .main-card { 
+            background: #111114;
+            border: 1px solid #1f1f23;
+        }
+        .preview-viewport::-webkit-scrollbar { width: 6px; }
+        .preview-viewport::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+        .preview-viewport::-webkit-scrollbar-thumb { background: #2d2d35; border-radius: 20px; }
+        .preview-viewport::-webkit-scrollbar-thumb:hover { background: #10b981; }
+    </style>
+</head>
+<body x-data="{ 
+    mobileMenu: false,
+    activePackage: 'hemat', // Default langsung membuka paket hemat
+    previewTheme: 'dark', 
+    
+    // Sistem Interaksi Paket Bisnis (Toko Online)
+    cartItems: [],
+    showCartModal: false,
+    products: [
+        { id: 1, name: 'Oxford Signature Shirt', price: 185000, img: 'fa-shirt', desc: 'Bahan katun premium, anti kusut.' },
+        { id: 2, name: 'Minimalist Cargo Pants', price: 240000, img: 'fa-user-ninja', desc: 'Saku fungsional, slim-fit nyaman.' },
+        { id: 3, name: 'Classic Leather Wallet', price: 125000, img: 'fa-wallet', desc: 'Kulit sapi asli dengan slot kartu aman.' }
+    ],
+    addToCart(item) {
+        let found = this.cartItems.find(p => p.id === item.id);
+        if (found) found.qty++;
+        else this.cartItems.push({ ...item, qty: 1 });
+    },
+    getCartTotal() {
+        return this.cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    },
+
+    getDynamicWaLink() {
+        let baseText = 'Halo SyntaksWeb, saya melihat live sandbox template Anda. ';
+        if(this.activePackage === 'hemat') {
+            return 'https://wa.me/6289630463001?text=' + encodeURIComponent(baseText + 'Saya berminat dengan STRUKTUR PAKET HEMAT (Rp 200rb).');
+        }
+        return 'https://wa.me/6289630463001?text=' + encodeURIComponent(baseText + 'Saya berminat dengan STRUKTUR PAKET BISNIS Toko Online (Rp 1 Juta).');
+    }
+}">
+
+    <nav class="fixed top-0 w-full z-50 bg-[#0a0a0c]/90 backdrop-blur-md border-b border-[#1f1f23]">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-code text-emerald-500 text-2xl"></i>
+                <span class="text-white-pure font-extrabold tracking-tighter text-xl code-font uppercase">
+                    Syntaks<span class="text-emerald-500">Web</span>
+                </span>
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest">
+                <a href="index.html" class="text-gray-400 hover:text-white-pure transition">Beranda</a>
+                <a href="template.html" class="text-emerald-500 transition">Template</a>
+                <a :href="getDynamicWaLink()" target="_blank" class="bg-emerald-500 text-black px-6 py-2.5 rounded-lg hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/10 text-[10px] uppercase tracking-widest">Konsultasi</a>
+            </div>
+            <button class="md:hidden text-white-pure text-2xl" @click="mobileMenu = !mobileMenu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-16 max-w-7xl mx-auto px-4 sm:px-6">
+        
+        <div class="mb-8 border-b border-[#1f1f23] pb-6 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+                <div class="inline-flex items-center gap-2 bg-emerald-500/5 border border-emerald-500/10 px-3 py-1 rounded-full text-[10px] font-bold text-emerald-500 uppercase tracking-wider mb-2">
+                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span> Live Layout Sandbox
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-extrabold text-white-pure tracking-tight">
+                    Contoh <span class="text-emerald-500">Template</span>
+                </h1>
+                <p class="text-xs text-gray-500 mt-1 max-w-2xl">
+                    Template demo interaktif ini dirancang untuk memberikan gambaran atau contoh sederhana tentang bagaimana struktur halaman web yang kami tawarkan
+                </p>
+            </div>
+
+            <div class="flex flex-wrap bg-[#111114] border border-[#1f1f23] p-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider gap-1">
+                <button @click="activePackage = 'hemat'" :class="activePackage === 'hemat' ? 'bg-emerald-500 text-black' : 'text-gray-400 hover:text-white-pure'" class="px-5 py-2.5 rounded-lg transition flex items-center gap-2">
+                    <i class="fa-solid fa-leaf text-xs"></i> Paket Hemat
+                </button>
+                <button @click="activePackage = 'business'" :class="activePackage === 'business' ? 'bg-emerald-500 text-black' : 'text-gray-400 hover:text-white-pure'" class="px-5 py-2.5 rounded-lg transition flex items-center gap-2">
+                    <i class="fa-solid fa-basket-shopping text-xs"></i> Paket Bisnis (Toko)
+                </button>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+            
+            <div class="lg:col-span-4 space-y-6">
+                <div class="main-card p-6 rounded-2xl">
+                    <span class="text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest block mb-1">Spesifikasi Arsitektur Halaman</span>
+                    
+                    <div x-show="activePackage === 'hemat'" x-cloak class="space-y-4">
+                        <h2 class="text-xl font-bold text-white-pure">Single-Page Layout</h2>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Struktur satu halaman penuh (*Landing Page*) yang dirancang khusus untuk mempercepat penjualan produk atau jasa mikro. Memangkas gangguan navigasi rumit agar konsumen fokus pada produk.
+                        </p>
+                        <div class="bg-emerald-500/5 border border-emerald-500/10 rounded-xl p-3 text-[11px] text-emerald-400">
+                            <strong>Ideal Untuk:</strong> Kuliner Lokal, Jasa Reparasi, Reseller, Produk Herbal, Personal Landing Page.
+                        </div>
+                    </div>
+
+                    <div x-show="activePackage === 'business'" x-cloak class="space-y-4">
+                        <h2 class="text-xl font-bold text-white-pure">Multi-Page E-Commerce</h2>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Contoh toko online terintegrasi sistem manajemen inventori mikro. Pengunjung dapat mengeksplorasi galeri produk terpisah, berinteraksi menambahkan barang ke keranjang, hingga menghitung otomatis sebelum *checkout*.
+                        </p>
+                        <div class="bg-indigo-500/5 border border-indigo-500/10 rounded-xl p-3 text-[11px] text-indigo-400">
+                            <strong>Ideal Untuk:</strong> Brand Fashion, Kosmetik, Toko Kue, Olshop Gadget, Retail Bisnis.
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-[#1f1f23]">
+                        <a :href="getDynamicWaLink()" target="_blank" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold py-3.5 rounded-xl transition text-[11px] tracking-widest uppercase shadow-xl shadow-emerald-500/5">
+                            Pilih Template Ini <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="main-card p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xs font-bold text-white-pure uppercase tracking-wider">Ubah warna</h3>
+                    </div>
+                    <div class="flex bg-[#0c0c0f] border border-[#1f1f23] p-1 rounded-lg text-[9px] font-bold">
+                        <button @click="previewTheme = 'light'" :class="previewTheme === 'light' ? 'bg-white text-black' : 'text-gray-400'" class="px-3 py-1.5 rounded transition">Light</button>
+                        <button @click="previewTheme = 'dark'" :class="previewTheme === 'dark' ? 'bg-zinc-800 text-white' : 'text-gray-400'" class="px-3 py-1.5 rounded transition">Dark</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="w-full rounded-2xl overflow-hidden border border-[#1f1f23] shadow-2xl bg-[#0c0c0f]">
+                    
+                    <div class="px-4 py-3 bg-[#0a0a0c] border-b border-[#1f1f23] flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-red-500/40"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/40"></div>
+                            <div class="bg-[#111114] border border-[#1f1f23] text-[9px] text-emerald-400 font-mono px-4 py-1 rounded-md ml-3 w-52 sm:w-80 truncate">
+                                <span class="text-gray-600">https://</span><span x-text="activePackage === 'hemat' ? 'kripikku-laku.biz.id' : 'urbanthreads-store.com'"></span>/demo-live
+                            </div>
+                        </div>
+                        <div class="text-[8px] font-mono tracking-widest text-gray-600 uppercase font-bold hidden sm:block">Simulated Fullscale Website Layout</div>
+                    </div>
+
+                    <div class="h-[550px] overflow-y-auto preview-viewport transition-colors duration-300"
+                         :class="previewTheme === 'light' ? 'bg-slate-50 text-slate-800' : 'bg-slate-950 text-slate-200'">
+                        
+                        <div x-show="activePackage === 'hemat'" class="relative" x-cloak>
+                            <div class="bg-amber-500 text-black text-[9px] font-bold py-1.5 text-center tracking-wide px-4 uppercase">
+                                🔥 PROMO SPESIAL
+                            </div>
+                            
+                            <header class="px-6 py-4 flex justify-between items-center border-b" :class="previewTheme === 'light' ? 'bg-white border-slate-200' : 'bg-slate-900/40 border-slate-900'">
+                                <div class="flex items-center gap-2 font-black text-sm tracking-tight text-amber-500">
+                                    <i class="fa-solid fa-fire-burner"></i> <span>KripikMaju UMKM</span>
+                                </div>
+                                <div class="flex gap-4 text-[9px] font-bold uppercase text-gray-400">
+                                    <span class="text-amber-500 underline cursor-pointer">Beranda</span>
+                                    <span class="opacity-40 cursor-not-allowed">Katalog</span>
+                                    <span class="opacity-40 cursor-not-allowed">Kontak</span>
+                                </div>
+                            </header>
+
+                            <section class="px-6 py-12 text-center max-w-xl mx-auto space-y-4">
+                                <span class="inline-block text-[8px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Camilan Tradisional Alami</span>
+                                <h3 class="text-xl sm:text-3xl font-extrabold tracking-tight" :class="previewTheme === 'light' ? 'text-slate-900' : 'text-white-pure'">
+                                    Keripik Singkong Madu Super Renyah Tanpa Pengawet
+                                </h3>
+                                <p class="text-xs text-gray-500 leading-relaxed">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum omnis perspiciatis dolor nesciunt velit deserunt! Quaerat, culpa necessitatibus numquam eius voluptatum natus hic, fuga aspernatur, at modi veniam blanditiis perferendis?
+                                </p>
+                                <div class="pt-2">
+                                    <a :href="getDynamicWaLink()" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] px-6 py-3 rounded-lg shadow-lg transition uppercase tracking-wider">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i> Pesan via WA Sekarang (Rp 15.000)
+                                    </a>
+                                </div>
+                            </section>
+
+                            <section class="px-6 py-8 border-t border-b grid grid-cols-3 gap-4" :class="previewTheme === 'light' ? 'bg-slate-100 border-slate-200' : 'bg-slate-900/20 border-slate-900'">
+                                <div class="text-center space-y-1">
+                                    <i class="fa-solid fa-leaf text-amber-500 text-sm"></i>
+                                    <h4 class="text-[10px] font-bold" :class="previewTheme === 'light' ? 'text-slate-900' : 'text-white-pure'">100% Organik</h4>
+                                    <p class="text-[9px] text-gray-500 leading-tight">Bahan baku pilihan tanpa kimia.</p>
+                                </div>
+                                <div class="text-center space-y-1">
+                                    <i class="fa-solid fa-certificate text-amber-500 text-sm"></i>
+                                    <h4 class="text-[10px] font-bold" :class="previewTheme === 'light' ? 'text-slate-900' : 'text-white-pure'">Halal & Higienis</h4>
+                                    <p class="text-[9px] text-gray-500 leading-tight">Proses produksi bersih standar BPOM.</p>
+                                </div>
+                                <div class="text-center space-y-1">
+                                    <i class="fa-solid fa-truck-fast text-amber-500 text-sm"></i>
+                                    <h4 class="text-[10px] font-bold" :class="previewTheme === 'light' ? 'text-slate-900' : 'text-white-pure'">Kirim Cepat</h4>
+                                    <p class="text-[9px] text-gray-500 leading-tight">Pengemasan aman dengan double protection.</p>
+                                </div>
+                            </section>
+
+                            <section class="px-6 py-10 space-y-4">
+                                <h4 class="text-center text-xs font-bold uppercase tracking-wider" :class="previewTheme === 'light' ? 'text-slate-800' : 'text-gray-300'">Dokumentasi Dapur Produksi</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="h-28 rounded-lg flex flex-col items-center justify-center border border-dashed border-gray-500/30 text-center p-3 text-gray-500 bg-slate-500/5">
+                                        <i class="fa-solid fa-images text-xl mb-1"></i>
+                                        <span class="text-[8px] uppercase tracking-wider font-mono">Foto Proses Penggorengan</span>
+                                    </div>
+                                    <div class="h-28 rounded-lg flex flex-col items-center justify-center border border-dashed border-gray-500/30 text-center p-3 text-gray-500 bg-slate-500/5">
+                                        <i class="fa-solid fa-box-open text-xl mb-1"></i>
+                                        <span class="text-[8px] uppercase tracking-wider font-mono">Foto Kemasan Siap Kirim</span>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <footer class="px-6 py-6 border-t text-center text-[9px] text-gray-500 space-y-2" :class="previewTheme === 'light' ? 'bg-white border-slate-200' : 'bg-slate-950 border-slate-900'">
+                                <p>&copy; 2026 KripikMaju Desa Sukamaju. Hak Cipta Dilindungi.</p>
+                            </footer>
+                        </div>
+
+                        <div x-show="activePackage === 'business'" class="relative" x-cloak>
+                            <div class="bg-indigo-600 text-white text-[9px] font-bold py-1 text-center tracking-widest px-4 flex justify-between items-center">
+                                <span>FLASH SALE</span>
+                                <span class="bg-black/20 px-2 py-0.5 rounded font-mono text-[8px]">KODE: SYNTAXSTORE</span>
+                            </div>
+
+                            <header class="px-6 py-4 flex justify-between items-center border-b sticky top-0 backdrop-blur-md z-10" :class="previewTheme === 'light' ? 'bg-white/90 border-slate-200' : 'bg-slate-950/90 border-slate-900'">
+                                <div class="flex items-center gap-1.5 font-extrabold text-xs uppercase tracking-wider" :class="previewTheme === 'light' ? 'text-indigo-600' : 'text-indigo-400'">
+                                    <i class="fa-solid fa-bag-shopping"></i> <span>URBANTHREADS</span>
+                                </div>
+                                <div class="flex items-center gap-5 text-[9px] font-bold uppercase">
+                                    <span class="text-indigo-500 cursor-pointer">Katalog</span>
+                                    <span class="text-gray-400 hover:text-indigo-400 cursor-pointer" @click="alert('Simulasi Pindah Halaman Tentang Kami (Active Multi-page)')">Tentang</span>
+                                    <button @click="showCartModal = true" class="relative bg-indigo-600 text-white px-3 py-1.5 rounded-lg flex items-center gap-2 font-mono text-[9px] hover:bg-indigo-500 transition">
+                                        <i class="fa-solid fa-cart-shopping"></i> 
+                                        <span>Keranjang</span>
+                                        <span class="bg-white text-indigo-600 font-bold px-1.5 py-0.2 rounded text-[8px]" x-text="cartItems.reduce((s,i)=>s+i.qty,0)"></span>
+                                    </button>
+                                </div>
+                            </header>
+
+                            <section class="px-6 py-8 text-center space-y-3 bg-gradient-to-b" :class="previewTheme === 'light' ? 'from-indigo-500/5 to-transparent' : 'from-indigo-950/20 to-transparent'">
+                                <h3 class="text-xl font-bold" :class="previewTheme === 'light' ? 'text-slate-900' : 'text-white-pure'">Koleksi Pakaian Minimalis Modern</h3>
+                                <p class="text-[11px] text-gray-500 max-w-md mx-auto">Silakan coba berinteraksi dengan mengeklik tombol <strong class="text-indigo-400">+ Keranjang</strong> di bawah untuk menguji mesin perhitungan otomatis web.</p>
+                            </section>
+
+                            <section class="px-6 pb-12 grid sm:grid-cols-3 gap-4">
+                                <template x-for="prod in products" :key="prod.id">
+                                    <div class="border rounded-xl p-3 flex flex-col justify-between transition hover:shadow-md" :class="previewTheme === 'light' ? 'bg-white border-slate-200' : 'bg-slate-900/60 border-slate-900'">
+                                        <div>
+                                            <div class="h-24 rounded-lg flex items-center justify-center text-2xl mb-2.5" :class="previewTheme === 'light' ? 'bg-slate-100 text-slate-400' : 'bg-slate-900 text-slate-700'">
+                                                <i class="fa-solid" :class="prod.img"></i>
+                                            </div>
+                                            <h4 class="text-xs font-bold leading-tight" :class="previewTheme === 'light' ? 'text-slate-900' : 'text-white-pure'" x-text="prod.name"></h4>
+                                            <p class="text-[9px] text-gray-500 mt-1 leading-tight" x-text="prod.desc"></p>
+                                        </div>
+                                        <div class="mt-3">
+                                            <div class="text-xs font-bold font-mono text-emerald-500" x-text="'Rp ' + prod.price.toLocaleString('id-ID')"></div>
+                                            <button @click="addToCart(prod)" class="w-full mt-2 bg-indigo-600 hover:bg-indigo-500 text-white text-[9px] font-bold py-1.5 rounded-md transition uppercase tracking-wider">
+                                                + Keranjang
+                                            </button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </section>
+
+                            <footer class="px-6 py-8 border-t text-xs" :class="previewTheme === 'light' ? 'bg-slate-100 border-slate-200' : 'bg-slate-950 border-slate-900'">
+                                <div class="text-center pt-4 text-[9px] text-gray-500">
+                                    &copy; 2026 URBANTHREADS Official Store. Template Sistem Komersial Multi-Page.
+                                </div>
+                            </footer>
+
+                            <div x-show="showCartModal" x-cloak class="absolute inset-0 bg-black/60 backdrop-blur-sm z-30 p-4 flex items-center justify-center" x-transition>
+                                <div class="w-full max-w-sm rounded-xl p-4 shadow-2xl flex flex-col max-h-[90%]" :class="previewTheme === 'light' ? 'bg-white text-slate-800' : 'bg-slate-900 text-slate-200'">
+                                    <div class="flex justify-between items-center border-b pb-2 mb-3">
+                                        <h4 class="text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-cart-shopping text-indigo-500 mr-1"></i> Tinjau Belanjaan Anda</h4>
+                                        <button @click="showCartModal = false" class="text-sm font-bold hover:text-red-500">&times;</button>
+                                    </div>
+                                    <div class="flex-grow overflow-y-auto space-y-2 pr-1 min-h-[100px]">
+                                        <template x-if="cartItems.length === 0">
+                                            <p class="text-center text-[11px] text-gray-500 py-6">Keranjang kosong, silakan klik "+ Keranjang" pada produk.</p>
+                                        </template>
+                                        <template x-for="item in cartItems" :key="item.id">
+                                            <div class="flex justify-between items-center p-2 rounded bg-gray-500/5 border border-gray-500/10 text-[11px]">
+                                                <div>
+                                                    <span class="font-bold block" x-text="item.name"></span>
+                                                    <span class="text-[9px] text-gray-500 font-mono" x-text="item.qty + 'x @ Rp ' + item.price.toLocaleString('id-ID')"></span>
+                                                </div>
+                                                <button @click="cartItems = cartItems.filter(p => p.id !== item.id)" class="text-[9px] text-red-500 hover:underline">Hapus</button>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="border-t pt-3 mt-3 space-y-2.5">
+                                        <div class="flex justify-between items-center text-xs font-bold">
+                                            <span>ESTIMASI TOTAL:</span>
+                                            <span class="text-emerald-500 font-mono" x-text="'Rp ' + getCartTotal().toLocaleString('id-ID')"></span>
+                                        </div>
+                                        <button @click="alert('Sukses! Pada web asli, sistem akan langsung menyusun teks pesanan rapi ke WhatsApp Anda.')" :disabled="cartItems.length === 0" class="w-full bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-[10px] font-bold py-2 rounded uppercase tracking-wider text-center">
+                                            Kirim Data Checkout Ke WA
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="border-t border-[#1f1f23] py-10 bg-[#0a0a0c]">
+        <div class="text-center text-[10px] text-gray-700 tracking-widest uppercase">
+            &copy; 2026 SyntaksWeb
+        </div>
+    </footer>
+
+    <div x-show="mobileMenu" x-cloak class="fixed inset-0 z-[100] bg-[#0a0a0c] p-12 flex flex-col justify-center items-center gap-10 font-extrabold text-2xl uppercase tracking-tighter">
+        <button @click="mobileMenu = false" class="absolute top-8 right-8 text-white-pure text-4xl">&times;</button>
+        <a href="index.html" class="hover:text-emerald-500">Beranda</a>
+        <a href="template.html" class="text-emerald-500">Template</a>
+        <a :href="getDynamicWaLink()" target="_blank" class="text-emerald-500">Konsultasi WA</a>
+    </div>
+
+</body>
+</html>
